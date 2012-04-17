@@ -2,17 +2,17 @@
 
 %parameters
 p.K = 3; % coupling strength
-p.N = 100; %number of oscillators
+p.N = 5; %number of oscillators
 Omega = 2; %mean frequency
 a = 0; b = Omega+2; %range of oscillator frequencies
 p.w = a + (b-a).*rand(p.N,1); %distribution of osc frequencies
-nIters = 10000;
+nIters = 1000;
 
 %initial condition
 thetaInit = -pi + 2*pi.*rand(p.N,1); %uniform distribution \in [-pi,pi]
 
 %integration
-[t,theta] = rk4(@kuramoto,0, 1000,thetaInit,nIters,p);
+[t,theta] = rk4(@kuramoto,0, 100,thetaInit,nIters,p);
 
 %plotting
 theta = mod(theta,2*pi); %theta is in the interval [0 2pi]
@@ -25,10 +25,10 @@ for ii = 1:nIters
     rTheta(ii) = 1 - circ_std(theta(:,ii)); %circular standard deviation of theta
     mx = rTheta(ii)*cos(mTheta(ii)); my = rTheta(ii)*sin(mTheta(ii));
     
-    plot(x,y,'.k'); hold on
+    plot(x,y,'Color',rand(p.N,3)); hold on
     line([0,mx],[0,my],'Color','r','LineWidth',4); hold off
     axis([-1 1 -1 1]); axis square
-    M(ii) = getframe;
+    pause(0.2)
 end 
 
-movie(M,1)
+% movie(M,1)
