@@ -48,7 +48,8 @@ G = kron(baseLNLN,tmp);%generate base matrix
 %now delete rows and columns to make the number of neurons associated with
 %the ith color to ne nPercolor(i)
 nDelete = m - nPerColor;
-tmp = 1:m^2; tmp = reshape(tmp,m,m);
+tmp = 1:m*nColors; tmp = reshape(tmp,m,nColors);
+% tmp = 1:m^2; tmp = reshape(tmp,m,m);
 deleteRowsCols = [];
 for ii = 1:size(baseLNLN,2)
     deleteRowsCols = [deleteRowsCols;tmp(1:nDelete(ii),ii)];
