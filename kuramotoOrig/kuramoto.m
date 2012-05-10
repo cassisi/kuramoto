@@ -8,5 +8,6 @@ function thetaDot = kuramoto(t,theta,p)
 %Kuramoto equations are given by
 %\dot{\theta_{i}} = \omega_{i} + (K/N)*\sum_{j=1}^{j=N} sin(\theta_{j}-\theta_{i})
 
-[theta_j,theta_i] = meshgrid(theta);
-thetaDot = p.w + p.K/p.N*sin(theta_j-theta_i)*ones(p.N,1);
+[theta_i,theta_j] = meshgrid(theta);
+interactionTerm = sum(sin(theta_j-theta_i),1)';
+thetaDot = p.w + p.K/p.N*interactionTerm;

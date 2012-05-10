@@ -1,8 +1,8 @@
 %% Script to integrate kuramoto equations and plot the results
 
 %parameters
-p.K = -1.5; % coupling strength
-p.N = 25; %number of oscillators
+p.K = 0.1; % coupling strength
+p.N = 100; %number of oscillators
 Omega = 3; %mean frequency
 a = Omega; b =Omega+5; %range of oscillator frequencies
 p.w = a + (b-a).*rand(p.N,1); %distribution of osc frequencies
@@ -24,7 +24,7 @@ theta = theta(ind,:);
 
 figure; imagesc(t,[1:p.N],theta)
 %% movie
-
+figure
 for ii = 1:nIters
     x = cos(theta(:,ii));
     y = sin(theta(:,ii));
@@ -32,7 +32,7 @@ for ii = 1:nIters
     rTheta(ii) = 1 - circ_std(theta(:,ii)); %circular standard deviation of theta
     mx = rTheta(ii)*cos(mTheta(ii)); my = rTheta(ii)*sin(mTheta(ii));
     
-    plot(x,y,'Color',k); hold on
+    plot(x,y,'.k'); hold on
     line([0,mx],[0,my],'Color','r','LineWidth',4); hold off
     axis([-1 1 -1 1]); axis square
     pause(0.2)
