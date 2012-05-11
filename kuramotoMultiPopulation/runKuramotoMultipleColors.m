@@ -2,16 +2,17 @@
 
 %parameters
 %---------------------------------------------------------------
-p.K = 4.5; % coupling strength
+p.K = -0.1; % coupling strength
 nIters = 20000; %number of iterations
 tBegin = 0; 
 tEnd = 200; 
 
 %network parameters
-nPerColor = [10 10];
+nPerColor = [10 10 10];
 p.N = sum(nPerColor); %number of oscillators
-baseLNLN = [0 1; 
-            1 0];
+baseLNLN = [0 1 1; 
+            1 0 1;
+            1 1 0];
 
 %oscillator frequency        
 Omega = 3; %mean frequency
@@ -34,18 +35,21 @@ theta = theta - pi; %shift the interval to [-pi pi]
 
 figure; imagesc(t,[1:p.N],theta)
 %% movie
-figure;
+figure
+x = cos(theta);
+y = sin(theta);
+mTheta = circ_mean(theta,[],1); %circular mean of theta
+rTheta = 1 - circ_std(theta,[],[],1); %circular standard deviation of theta
+mx = rTheta.*cos(mTheta); my = rTheta.*sin(mTheta);
+
 for ii = 1:nIters
-    x = cos(theta(:,ii));
-    y = sin(theta(:,ii));
-    mTheta(ii) = circ_mean(theta(:,ii)); %circular mean of theta
-    rTheta(ii) = 1 - circ_std(theta(:,ii)); %circular standard deviation of theta
-    mx = rTheta(ii)*cos(mTheta(ii)); my = rTheta(ii)*sin(mTheta(ii));
     
-    plot(x,y,'.k'); hold on
-    line([0,mx],[0,my],'Color','r','LineWidth',2); hold off
+    plot(x(:,ii),y(:,ii),'.k'); hold on
+    line([0,mx(ii)],[0,my(ii)],'Color','r','LineWidth',4); hold off
     axis([-1 1 -1 1]); axis square
-    pause(0.2)
-end 
+    drawnow
+    %     pause(0.2)
+end
+
 
 % movie(M,1)
