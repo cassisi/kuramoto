@@ -2,7 +2,7 @@
 
 %parameters
 %---------------------------------------------------------------
-p.K = -0.5; % coupling strength
+p.K = -3.5; % coupling strength
 nIters = 20000; %number of iterations
 tBegin = 0;
 tEnd = 200;
@@ -20,8 +20,8 @@ baseLNLN = [0 1 1 1 1 1 0 0; % the connectivity between colored groups
     0 0 1 0 0 0 0 0];
 
 %oscillator frequency
-Omega = 3; %mean frequency
-a = Omega; b =Omega+3; %range of oscillator frequencies
+Omega = 0; %mean frequency
+a = Omega; b =Omega; %range of oscillator frequencies
 p.w = a + (b-a).*rand(p.N,1); %distribution of osc frequencies
 %----------------------------------------------
 
@@ -46,7 +46,7 @@ y = sin(theta);
 % mTheta = circ_mean(theta,[],1); %circular mean of theta
 % rTheta = 1 - circ_std(theta,[],[],1); %circular standard deviation of theta
 % mx = rTheta.*cos(mTheta); my = rTheta.*sin(mTheta);
-Colors = rand(nPerColor,3);
+Colors = rand(length(nPerColor),3);
 colorInd2 = cumsum(nPerColor);
 colorInd1 = [1,colorInd2(1:end-1)+1];
 for ii = 10000:nIters
